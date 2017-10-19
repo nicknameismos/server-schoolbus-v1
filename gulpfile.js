@@ -266,7 +266,10 @@ gulp.task('lint', function (done) {
 gulp.task('build', function (done) {
   runSequence('env:dev', 'lint', ['uglify', 'cssmin'], done);
 });
-
+// Lint project files and minify them into two production files.
+gulp.task('build:prod', function (done) {
+  runSequence('env:prod', 'lint', ['uglify', 'cssmin'], done);
+});
 // Run the project tests
 gulp.task('test', function (done) {
   runSequence('env:test', 'lint', 'mocha', 'karma', 'nodemon', 'protractor', done);

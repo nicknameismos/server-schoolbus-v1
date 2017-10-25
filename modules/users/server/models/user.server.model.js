@@ -76,14 +76,14 @@ var UserSchema = new Schema({
   },
   providerData: {},
   additionalProvidersData: {},
-  gender: {
-    type: String,
-    default: ''
-  },
-  birthday: {
-    type: String,
-    default: ''
-  },
+  // gender: {
+  //   type: String,
+  //   default: ''
+  // },
+  // birthday: {
+  //   type: String,
+  //   default: ''
+  // },
   phone: {
     type: String,
     default: ''

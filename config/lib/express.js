@@ -17,6 +17,7 @@ var config = require('../config'),
   helmet = require('helmet'),
   flash = require('connect-flash'),
   consolidate = require('consolidate'),
+  cors = require('cors'),
   path = require('path');
 
 
@@ -55,7 +56,15 @@ module.exports.initLocalVariables = function (app) {
     res.header('Access-Control-Allow-Headers', 'Content-Type');
     next();
   });
+
+  var corsOptions = {
+    origin: '*'
+  };
+
+  app.use(cors(corsOptions));
 };
+
+
 
 /**
  * Initialize application middleware

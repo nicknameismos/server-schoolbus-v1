@@ -55,29 +55,29 @@ describe('User Token tests', function () {
 
     it('should be able to login successfully and have token', function (done) {
 
-        // agent.post('/api/auth/signin')
-        //     .send(credentials)
-        //     .expect(200)
-        //     .end(function (signinErr, signinRes) {
-        //         // Handle signin error
-        //         if (signinErr) {
-        //             return done(signinErr);
-        //         }
-        //         signinRes.body.loginToken.should.not.be.empty();
-        //         agent.post('/api')
-        //             .set('authorization', 'Bearer ' + signinRes.body.loginToken)
-        //             .expect(200)
-        //             .end(function (signinErr, signinResToken) {
-        //                 // Handle signin error
-        //                 if (signinErr) {
-        //                     return done(signinErr);
-        //                 }
-        //                 signinResToken.body.loginToken.should.equal(signinRes.body.loginToken);
-        //                 done();
-        //             });
-        //     });
+        agent.post('/api/auth/signin')
+            .send(credentials)
+            .expect(200)
+            .end(function (signinErr, signinRes) {
+                // Handle signin error
+                if (signinErr) {
+                    return done(signinErr);
+                }
+                signinRes.body.loginToken.should.not.be.empty();
+                agent.post('/api/private')
+                    .set('authorization', 'Bearer ' + signinRes.body.loginToken)
+                    .expect(200)
+                    .end(function (signinErr, signinResToken) {
+                        // Handle signin error
+                        if (signinErr) {
+                            return done(signinErr);
+                        }
+                        signinResToken.body.loginToken.should.equal(signinRes.body.loginToken);
+                        done();
+                    });
+            });
 
-        done();
+        // done();
 
     });
 

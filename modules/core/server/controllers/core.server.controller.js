@@ -82,3 +82,7 @@ exports.requiresLoginToken = function (req, res, next) {
 
 
 };
+
+exports.privateuser = function (req, res) {
+  res.json(req.user);
+};

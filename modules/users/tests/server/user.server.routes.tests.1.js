@@ -63,6 +63,7 @@ describe('User CRUD tests have token', function () {
           return done(signinErr);
         }
         signinRes.body.loginToken.should.not.be.empty();
+        token = signinRes.body.loginToken;
         done();
 
       });

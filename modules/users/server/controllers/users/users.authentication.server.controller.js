@@ -7,7 +7,10 @@ var path = require('path'),
   errorHandler = require(path.resolve('./modules/core/server/controllers/errors.server.controller')),
   mongoose = require('mongoose'),
   passport = require('passport'),
+  jwt = require('jsonwebtoken'),
   User = mongoose.model('User');
+  
+var secret = 'keepitquiet';
 
 // URLs for which user can't be redirected on signin
 var noReturnUrls = [
@@ -26,9 +29,16 @@ exports.signup = function (req, res) {
   var user = new User(req.body);
   var message = null;
 
+  var tokenPayload = {
+    username: user.username,
+    loginExpires: user.loginExpires
+  };
+
   // Add missing user fields
   user.provider = 'local';
   user.displayName = user.firstName + ' ' + user.lastName;
+  user.loginToken = jwt.sign(tokenPayload, secret);
+  user.loginExpires = Date.now() + (2 * 60 * 60 * 1000); // 2 hours
 
   // Then save the user
   user.save(function (err) {
@@ -41,7 +51,7 @@ exports.signup = function (req, res) {
       user.password = undefined;
       user.salt = undefined;
 
-      req.login(user, function (err,resp) {
+      req.login(user, function (err, resp) {
         if (err) {
           res.status(400).send(err);
         } else {

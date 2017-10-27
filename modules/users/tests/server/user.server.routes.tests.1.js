@@ -10,7 +10,7 @@ var should = require('should'),
 /**
  * Globals
  */
-var app, agent, credentials, user, _user, admin;
+var app, agent, credentials, user, _user, admin, token;
 
 /**
  * User routes tests

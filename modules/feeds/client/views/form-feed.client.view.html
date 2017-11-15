@@ -12,6 +12,13 @@
             <p class="help-block error-text" ng-message="required">Feed name is required.</p>
           </div>
         </div>
+        <div class="form-group" show-errors>
+          <label class="control-label" for="image">Image</label>
+          <input name="image" type="text" ng-model="vm.feed.image" id="image" class="form-control" placeholder="image" required>
+          <div ng-messages="vm.form.feedForm.image.$error" role="alert">
+            <p class="help-block error-text" ng-message="required">Feed image is required.</p>
+          </div>
+        </div>
         <div class="form-group">
           <button type="submit" class="btn btn-default">{{vm.feed._id ? 'Update' : 'Create'}}</button>
         </div>

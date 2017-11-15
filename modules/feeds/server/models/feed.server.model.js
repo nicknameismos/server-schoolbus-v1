@@ -16,6 +16,12 @@ var FeedSchema = new Schema({
     required: 'Please fill Feed name',
     trim: true
   },
+  image: {
+    type: [String],
+    default: '',
+    required: 'Please fill Feed image'
+
+  },
   created: {
     type: Date,
     default: Date.now

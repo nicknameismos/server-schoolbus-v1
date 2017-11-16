@@ -56,9 +56,7 @@ describe('Feed CRUD tests with token', function () {
       feed = {
         name: 'Feed name',
         image: ['image'],
-        islike: [{
-          user: user
-        }],
+        islike: [],
         comments: [{
           user: user,
           comment: 'test comment',
@@ -152,7 +150,46 @@ describe('Feed CRUD tests with token', function () {
 
   });
 
+  it('update user islike', function (done) {
+    agent.post('/api/feeds')
+      .set('authorization', 'Bearer ' + token)
+      .send(feed)
+      .expect(200)
+      .end(function (feedSaveErr, feedSaveRes) {
+        // Handle signin error
+        if (feedSaveErr) {
+          return done(feedSaveErr);
+        }
 
+        var feeds = feedSaveRes.body;
+        feeds.islike.push({
+          user: user,
+          created: Date.now()
+        });
+
+        agent.put('/api/feeds/' + feedSaveRes.body._id)
+          .set('authorization', 'Bearer ' + token)
+          .send(feeds)
+          .expect(200)
+          .end(function (feedUpdateErr, feedUpdateRes) {
+            if (feedUpdateErr) {
+              return done(feedUpdateErr);
+            }
+            var feedUpdate = feedUpdateRes.body;
+            //(feedUpdate).should.match('');
+            agent.get('/api/feeds/' + feedUpdate._id)
+              .end(function (feedGetErr, feedGetRes) {
+                if (feedGetErr) {
+                  return done(feedGetErr);
+                }
+
+                // (feedGetRes.body.islike.user).should.match(feeds.user);
+                done();
+
+              });
+          });
+      });
+  });
 
   afterEach(function (done) {
     User.remove().exec(function () {

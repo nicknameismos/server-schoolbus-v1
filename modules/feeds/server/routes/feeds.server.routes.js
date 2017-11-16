@@ -14,14 +14,14 @@ module.exports = function (app) {
     .get(feeds.list)
     .post(feeds.create);
 
-  app.route('/api/feeds/:feedId').all(feedsPolicy.isAllowed)
+  app.route('/api/feeds/:feedId').all(core.requiresLoginToken, feedsPolicy.isAllowed)
     .get(feeds.read)
     .put(feeds.update)
     .delete(feeds.delete);
 
   app.route('/api/feedbyuser').all(core.requiresLoginToken, feedsPolicy.isAllowed)
     .get(feeds.getFeedByUser);
-    
+
 
 
   // Finish by binding the Feed middleware

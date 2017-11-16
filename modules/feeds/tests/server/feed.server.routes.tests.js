@@ -51,7 +51,16 @@ describe('Feed CRUD tests', function () {
     // Save a user to the test db and create new Feed
     user.save(function () {
       feed = {
-        name: 'Feed name'
+        name: 'Feed name',
+        image: ['image'],
+        islike:[{
+          user:user
+        }],
+        comments:[{
+          user:user,
+          comment:'test comment',
+        }]
+
       };
 
       done();

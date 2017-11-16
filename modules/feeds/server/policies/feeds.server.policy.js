@@ -20,6 +20,9 @@ exports.invokeRolesPolicies = function () {
     }, {
       resources: '/api/feeds/:feedId',
       permissions: '*'
+    }, {
+      resources: '/api/feedbyuser',
+      permissions: '*'
     }]
   }, {
     roles: ['user'],
@@ -29,6 +32,9 @@ exports.invokeRolesPolicies = function () {
     }, {
       resources: '/api/feeds/:feedId',
       permissions: ['get']
+    }, {
+      resources: '/api/feedbyuser',
+      permissions: ['get']
     }]
   }, {
     roles: ['guest'],
@@ -37,6 +43,9 @@ exports.invokeRolesPolicies = function () {
       permissions: ['get']
     }, {
       resources: '/api/feeds/:feedId',
+      permissions: ['get']
+    }, {
+      resources: '/api/feedbyuser',
       permissions: ['get']
     }]
   }]);

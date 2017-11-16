@@ -12,11 +12,11 @@ var path = require('path'),
 /**
  * Create a Feed
  */
-exports.create = function(req, res) {
+exports.create = function (req, res) {
   var feed = new Feed(req.body);
   feed.user = req.user;
 
-  feed.save(function(err) {
+  feed.save(function (err) {
     if (err) {
       return res.status(400).send({
         message: errorHandler.getErrorMessage(err)
@@ -30,7 +30,7 @@ exports.create = function(req, res) {
 /**
  * Show the current Feed
  */
-exports.read = function(req, res) {
+exports.read = function (req, res) {
   // convert mongoose document to JSON
   var feed = req.feed ? req.feed.toJSON() : {};
 
@@ -44,12 +44,12 @@ exports.read = function(req, res) {
 /**
  * Update a Feed
  */
-exports.update = function(req, res) {
+exports.update = function (req, res) {
   var feed = req.feed;
 
   feed = _.extend(feed, req.body);
 
-  feed.save(function(err) {
+  feed.save(function (err) {
     if (err) {
       return res.status(400).send({
         message: errorHandler.getErrorMessage(err)
@@ -63,10 +63,10 @@ exports.update = function(req, res) {
 /**
  * Delete an Feed
  */
-exports.delete = function(req, res) {
+exports.delete = function (req, res) {
   var feed = req.feed;
 
-  feed.remove(function(err) {
+  feed.remove(function (err) {
     if (err) {
       return res.status(400).send({
         message: errorHandler.getErrorMessage(err)
@@ -80,8 +80,8 @@ exports.delete = function(req, res) {
 /**
  * List of Feeds
  */
-exports.list = function(req, res) {
-  Feed.find().sort('-created').populate('user', 'displayName').exec(function(err, feeds) {
+exports.list = function (req, res) {
+  Feed.find().sort('-created').populate('user', 'displayName').exec(function (err, feeds) {
     if (err) {
       return res.status(400).send({
         message: errorHandler.getErrorMessage(err)
@@ -95,7 +95,7 @@ exports.list = function(req, res) {
 /**
  * Feed middleware
  */
-exports.feedByID = function(req, res, next, id) {
+exports.feedByID = function (req, res, next, id) {
 
   if (!mongoose.Types.ObjectId.isValid(id)) {
     return res.status(400).send({
@@ -115,3 +115,16 @@ exports.feedByID = function(req, res, next, id) {
     next();
   });
 };
+
+exports.getFeedByUser = function (req, res) {
+  Feed.find({ user: { _id: req.user._id } }, 'name image _id').sort('-created').populate('user', 'displayName').exec(function (err, feeds) {
+    if (err) {
+      return res.status(400).send({
+        message: errorHandler.getErrorMessage(err)
+      });
+    } else {
+      res.jsonp(feeds);
+    }
+  });
+};
+

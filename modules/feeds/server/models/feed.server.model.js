@@ -22,6 +22,32 @@ var FeedSchema = new Schema({
     required: 'Please fill Feed image'
 
   },
+  islike:{
+    type:[{
+      user: {
+        type: Schema.ObjectId,
+        ref: 'User'
+      },
+      created: {
+        type: Date,
+        default: Date.now
+      }
+    }]
+  },
+  comments:{
+    type:[{
+      user: {
+        type: Schema.ObjectId,
+        ref: 'User'
+      },
+      created: {
+        type: Date,
+        default: Date.now
+      },
+      comment:String,
+
+    }]
+  },
   created: {
     type: Date,
     default: Date.now

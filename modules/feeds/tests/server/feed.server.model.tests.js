@@ -31,6 +31,7 @@ describe('Feed Model Unit Tests:', function() {
     user.save(function() {
       feed = new Feed({
         name: 'Feed Name',
+        image:['img'],
         user: user
       });
 
@@ -49,6 +50,14 @@ describe('Feed Model Unit Tests:', function() {
 
     it('should be able to show an error when try to save without name', function(done) {
       feed.name = '';
+
+      return feed.save(function(err) {
+        should.exist(err);
+        done();
+      });
+    });
+    it('should be able to show an error when try to save without image', function(done) {
+      feed.image = [];
 
       return feed.save(function(err) {
         should.exist(err);

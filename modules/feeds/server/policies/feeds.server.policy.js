@@ -23,6 +23,9 @@ exports.invokeRolesPolicies = function () {
     }, {
       resources: '/api/feedbyuser',
       permissions: '*'
+    }, {
+      resources: '/api/feeds/comment/:feedId',
+      permissions: '*'
     }]
   }, {
     roles: ['user'],
@@ -35,6 +38,9 @@ exports.invokeRolesPolicies = function () {
     }, {
       resources: '/api/feedbyuser',
       permissions: ['get']
+    }, {
+      resources: '/api/feeds/comment/:feedId',
+      permissions: ['put']
     }]
   }, {
     roles: ['guest'],
@@ -47,6 +53,9 @@ exports.invokeRolesPolicies = function () {
     }, {
       resources: '/api/feedbyuser',
       permissions: ['get']
+    }, {
+      resources: '/api/feeds/comment/:feedId',
+      permissions: ['put']
     }]
   }]);
 };

@@ -23,8 +23,9 @@ module.exports = function (app) {
   app.route('/api/feedbyuser').all(core.requiresLoginToken, feedsPolicy.isAllowed)
     .get(feeds.getFeedByUser);
 
-
-
+  app.route('/api/feeds/comment/:feedId')//.all(feedsPolicy.isAllowed)
+    .put(feeds.updateComment);
+    
   // Finish by binding the Feed middleware
   app.param('feedId', feeds.feedByID);
 };

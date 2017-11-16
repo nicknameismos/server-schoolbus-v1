@@ -128,3 +128,21 @@ exports.getFeedByUser = function (req, res) {
   });
 };
 
+exports.updateComment = function (req, res) {
+  if (req.user && req.user !== undefined) {
+    req.body = req.body ? req.body : {};
+    req.body.user = req.user;
+  }
+
+  req.feed.comments.push(req.body);
+  req.feed.save(function (err) {
+    if (err) {
+      return res.status(400).send({
+        message: errorHandler.getErrorMessage(err)
+      });
+    } else {
+      res.jsonp(req.feed);
+    }
+  });
+};
+

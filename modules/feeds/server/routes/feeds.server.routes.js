@@ -9,9 +9,10 @@ var feedsPolicy = require('../policies/feeds.server.policy'),
 
 module.exports = function (app) {
   // Feeds Routes
+  app.route('/api/feeds')//.all(core.requiresLoginToken, feedsPolicy.isAllowed)
+    .get(feeds.list);
 
   app.route('/api/feeds').all(core.requiresLoginToken, feedsPolicy.isAllowed)
-    .get(feeds.list)
     .post(feeds.create);
 
   app.route('/api/feeds/:feedId').all(core.requiresLoginToken, feedsPolicy.isAllowed)

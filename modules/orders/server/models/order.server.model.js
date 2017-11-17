@@ -16,6 +16,11 @@ var OrderSchema = new Schema({
     required: 'Please fill Order name',
     trim: true
   },
+  image: {
+    type: String,
+    default: '',
+    required: 'Please fill Order image'
+  },
   created: {
     type: Date,
     default: Date.now

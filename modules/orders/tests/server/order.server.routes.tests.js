@@ -51,7 +51,30 @@ describe('Order CRUD tests', function () {
     // Save a user to the test db and create new Order
     user.save(function () {
       order = {
-        name: 'Order name'
+        name: 'Order name',
+        image: 'image',
+        route: {
+          routetype: 'เที่ยวเดียว',
+          contact: 'Moss',
+          tel: '0879815433',
+          reception: {
+            item: 'หมู่บ้านคาซ่าซิตี้',
+            lat: 13.9987,
+            long: 15.9876
+          },
+          school: {
+            item: 'โรงเรียนอนุบาลเศรฐบุตร',
+            lat: 24.5433,
+            long: 107.1232
+          },
+          send: {
+            item: 'หมู่บ้านคาซ่าซิตี้',
+            lat: 13.9987,
+            long: 15.9876
+
+          }
+        },
+        user: user
       };
 
       done();

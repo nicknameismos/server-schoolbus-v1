@@ -21,6 +21,28 @@ var OrderSchema = new Schema({
     default: '',
     required: 'Please fill Order image'
   },
+  route: {
+    type: {
+      routetype: String,
+      contact: String,
+      tel: Number,
+      reception: {
+        item: String,
+        lat: Number,
+        long: Number
+      },
+      school: {
+        item: String,
+        lat: Number,
+        long: Number
+      },
+      send: {
+        item: String,
+        lat: Number,
+        long: Number
+      }
+    }
+  },
   created: {
     type: Date,
     default: Date.now

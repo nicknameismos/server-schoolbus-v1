@@ -81,7 +81,7 @@ exports.delete = function (req, res) {
  * List of Feeds
  */
 exports.list = function (req, res) {
-  Feed.find().sort('-created').populate('user', 'displayName').exec(function (err, feeds) {
+  Feed.find().sort('-created').populate('user', 'displayName').populate('comments.user', 'displayName').exec(function (err, feeds) {
     if (err) {
       return res.status(400).send({
         message: errorHandler.getErrorMessage(err)
@@ -103,7 +103,7 @@ exports.feedByID = function (req, res, next, id) {
     });
   }
 
-  Feed.findById(id).populate('user', 'displayName').exec(function (err, feed) {
+  Feed.findById(id).populate('user', 'displayName').populate('comments.user', 'displayName').exec(function (err, feed) {
     if (err) {
       return next(err);
     } else if (!feed) {
@@ -117,7 +117,11 @@ exports.feedByID = function (req, res, next, id) {
 };
 
 exports.getFeedByUser = function (req, res) {
-  Feed.find({ user: { _id: req.user._id } }, 'name image _id').sort('-created').populate('user', 'displayName').exec(function (err, feeds) {
+  Feed.find({
+    user: {
+      _id: req.user._id
+    }
+  }, 'name image _id').sort('-created').populate('user', 'displayName').exec(function (err, feeds) {
     if (err) {
       return res.status(400).send({
         message: errorHandler.getErrorMessage(err)
@@ -145,4 +149,3 @@ exports.updateComment = function (req, res) {
     }
   });
 };
-

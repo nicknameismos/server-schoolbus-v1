@@ -24,22 +24,26 @@ var OrderSchema = new Schema({
   route: {
     type: {
       routetype: String,
-      contact: String,
-      tel: Number,
       reception: {
         item: String,
         lat: Number,
-        long: Number
+        long: Number,
+        contact: String,
+        tel: Number
       },
       school: {
         item: String,
         lat: Number,
-        long: Number
+        long: Number,
+        contact: String,
+        tel: Number
       },
       send: {
         item: String,
         lat: Number,
-        long: Number
+        long: Number,
+        contact: String,
+        tel: Number
       }
     }
   },

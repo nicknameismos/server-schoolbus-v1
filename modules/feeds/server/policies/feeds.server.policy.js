@@ -34,7 +34,7 @@ exports.invokeRolesPolicies = function () {
       permissions: ['get', 'post']
     }, {
       resources: '/api/feeds/:feedId',
-      permissions: ['get']
+      permissions: ['get', 'put']
     }, {
       resources: '/api/feedbyuser',
       permissions: ['get']
@@ -49,7 +49,7 @@ exports.invokeRolesPolicies = function () {
       permissions: ['get']
     }, {
       resources: '/api/feeds/:feedId',
-      permissions: ['get']
+      permissions: ['get', 'put']
     }, {
       resources: '/api/feedbyuser',
       permissions: ['get']

@@ -98,6 +98,7 @@ exports.listCooking = function (req, res) {
   var orders = [];
   req.orders.forEach(data => {
     orders.push({
+      _id: data._id,
       name: data.name,
       image: data.image,
       reception: data.route.reception.item,

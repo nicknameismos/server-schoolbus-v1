@@ -96,14 +96,14 @@ exports.list = function (req, res, next) {
 
 exports.listCooking = function (req, res) {
   var orders = [];
-  req.orders.forEach( data => {
-    orders.push({ 
+  req.orders.forEach(data => {
+    orders.push({
       _id: data._id,
       name: data.name || '',
       image: data.image || '',
-      reception: data.route.reception.item || '',
-      school: data.route.school.item || '',
-      send: data.route.send.item || ''
+      reception: data.route.reception ? data.route.reception.item : '',
+      school: data.route.school ? data.route.school.item : '',
+      send: data.route.send ? data.route.send.item : ''
     });
   });
   res.jsonp(orders);

@@ -12,11 +12,11 @@ var path = require('path'),
 /**
  * Create a Order
  */
-exports.create = function(req, res) {
+exports.create = function (req, res) {
   var order = new Order(req.body);
   order.user = req.user;
 
-  order.save(function(err) {
+  order.save(function (err) {
     if (err) {
       return res.status(400).send({
         message: errorHandler.getErrorMessage(err)
@@ -30,7 +30,7 @@ exports.create = function(req, res) {
 /**
  * Show the current Order
  */
-exports.read = function(req, res) {
+exports.read = function (req, res) {
   // convert mongoose document to JSON
   var order = req.order ? req.order.toJSON() : {};
 
@@ -44,12 +44,12 @@ exports.read = function(req, res) {
 /**
  * Update a Order
  */
-exports.update = function(req, res) {
+exports.update = function (req, res) {
   var order = req.order;
 
   order = _.extend(order, req.body);
 
-  order.save(function(err) {
+  order.save(function (err) {
     if (err) {
       return res.status(400).send({
         message: errorHandler.getErrorMessage(err)
@@ -63,10 +63,10 @@ exports.update = function(req, res) {
 /**
  * Delete an Order
  */
-exports.delete = function(req, res) {
+exports.delete = function (req, res) {
   var order = req.order;
 
-  order.remove(function(err) {
+  order.remove(function (err) {
     if (err) {
       return res.status(400).send({
         message: errorHandler.getErrorMessage(err)
@@ -80,22 +80,38 @@ exports.delete = function(req, res) {
 /**
  * List of Orders
  */
-exports.list = function(req, res) {
-  Order.find().sort('-created').populate('user', 'displayName').exec(function(err, orders) {
+exports.list = function (req, res, next) {
+  Order.find({ user: { _id: req.user._id } }).sort('-created').populate('user', 'displayName').exec(function (err, orders) {
     if (err) {
       return res.status(400).send({
         message: errorHandler.getErrorMessage(err)
       });
     } else {
-      res.jsonp(orders);
+      req.orders = orders;
+      next();
+      // res.jsonp(orders);
     }
   });
+};
+
+exports.listCooking = function (req, res) {
+  var orders = [];
+  req.orders.forEach(data => {
+    orders.push({
+      name: data.name,
+      image: data.image,
+      reception: data.route.reception.item,
+      school: data.route.school.item,
+      send: data.route.send.item
+    });
+  });
+  res.jsonp(orders);
 };
 
 /**
  * Order middleware
  */
-exports.orderByID = function(req, res, next, id) {
+exports.orderByID = function (req, res, next, id) {
 
   if (!mongoose.Types.ObjectId.isValid(id)) {
     return res.status(400).send({

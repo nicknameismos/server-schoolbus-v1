@@ -86,6 +86,7 @@ var UserSchema = new Schema({
   // },
   phone: {
     type: String,
+    unique: 'Phone already exists',
     default: ''
   },
   roles: {

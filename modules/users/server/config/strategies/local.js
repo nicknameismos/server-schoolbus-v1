@@ -30,12 +30,12 @@ module.exports = function () {
                 }
                 if (!user) {
                     return done(null, false, {
-                        message: 'Unknown user'
+                        message: 'ไม่พบผู้ใช้'
                     });
                 }
                 if (!user.authenticate(password)) {
                     return done(null, false, {
-                        message: 'Invalid password'
+                        message: 'รหัสผ่านไม่ถูกต้อง'
                     });
                 }
 

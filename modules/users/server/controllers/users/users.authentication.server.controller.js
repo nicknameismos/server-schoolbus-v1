@@ -9,7 +9,7 @@ var path = require('path'),
   passport = require('passport'),
   jwt = require('jsonwebtoken'),
   User = mongoose.model('User');
-  
+
 var secret = 'keepitquiet';
 
 // URLs for which user can't be redirected on signin
@@ -44,7 +44,7 @@ exports.signup = function (req, res) {
   user.save(function (err) {
     if (err) {
       return res.status(400).send({
-        message: errorHandler.getErrorMessage(err)
+        message: errorTH(errorHandler.getErrorMessage(err))
       });
     } else {
       // Remove sensitive data before login
@@ -252,3 +252,48 @@ exports.removeOAuthProvider = function (req, res, next) {
     }
   });
 };
+
+
+function errorTH(err) {
+  if (err.toString() === '11000 duplicate key error collection: mean-test.users index: phone already exists' || err.toString() === 'mean-test.users index: phone already exists' || err.toString() === 'phone already exists') {
+    return 'เบอร์โทรศัพท์นี้ถูกใช้แล้ว';
+  } else if ((err.toString() === '11000 duplicate key error collection: mean-test.users index: username already exists' || err.toString() === 'mean-test.users index: username already exists' || err.toString() === 'username already exists')) {
+    return 'ชื่อบัญชีนี้ถูกใช้แล้ว';
+  } else if ((err.toString() === '11000 duplicate key error collection: mean-test.users index: email already exists' || err.toString() === 'mean-test.users index: email already exists' || err.toString() === 'email already exists')) {
+    return 'อีเมล์นี้ถูกใช้แล้ว';
+  } else if ((err.toString() === 'The password must be at least 10 characters long.')) {
+    return 'รหัสผ่านต้องมีอย่างน้อย10ตัวอักษร';
+  } else if ((err.toString() === 'The password must contain at least one special character.')) {
+    return 'รหัสผ่านต้องมีอักขระอย่างน้อย 1 ตัว @, #, $';
+  } else if ((err.toString() === 'The password may not contain sequences of three or more repeated characters.')) {
+    return 'รหัสผ่านต้องไม่เรียงซ้ำกันเกิน 3 ตัวขึ้นไป';
+  } else if ((err.toString() === 'The password must contain at least one uppercase letter.')) {
+    return 'รหัสผ่านต้องมีตัวอักษรพิมพ์ใหญ่อย่างน้อย 1 ตัว';
+  } else if ((err.toString() === 'The password must contain at least one lowercase letter.')) {
+    return 'รหัสผ่านต้องมีตัวอักษรพิมพ์เล็กอย่างน้อย 1 ตัว';
+  } else if ((err.toString() === 'The password must be at least 10 characters long. The password must contain at least one uppercase letter. The password must contain at least one number. The password must contain at least one special character.')) {
+    return 'รหัสผ่านต้องมีความยาวอย่างน้อย 10 ตัว, รหัสผ่านต้องมีตัวอักษรพิมพ์ใหญ่อย่างน้อยหนึ่งตัว, รหัสผ่านต้องมีอย่างน้อยหนึ่งหมายเลข, รหัสผ่านต้องมีอักขระพิเศษอย่างน้อยหนึ่งอักขระ';
+  } else if ((err.toString() === 'The password must be at least 10 characters long. The password must contain at least one lowercase letter. The password must contain at least one number. The password must contain at least one special character.')) {
+    return 'รหัสผ่านต้องมีความยาวอย่างน้อย 10 ตัว, รหัสผ่านต้องมีอักษรตัวพิมพ์เล็กอย่างน้อยหนึ่งตัว, รหัสผ่านต้องมีอย่างน้อยหนึ่งหมายเลข, รหัสผ่านต้องมีอักขระพิเศษอย่างน้อยหนึ่งอักขระ';
+  } else if ((err.toString() === 'The password must be at least 10 characters long. The password must contain at least one lowercase letter. The password must contain at least one uppercase letter. The password must contain at least one special character.')) {
+    return 'รหัสผ่านต้องมีความยาวอย่างน้อย 10 ตัว, รหัสผ่านต้องมีอักษรตัวพิมพ์เล็กอย่างน้อยหนึ่งตัว, รหัสผ่านต้องมีตัวอักษรพิมพ์ใหญ่อย่างน้อยหนึ่งตัว, รหัสผ่านต้องมีอักขระพิเศษอย่างน้อยหนึ่งอักขระ';
+  } else if ((err.toString() === 'The password must be at least 10 characters long. The password must contain at least one lowercase letter. The password must contain at least one uppercase letter. The password must contain at least one number.')) {
+    return 'รหัสผ่านต้องมีความยาวอย่างน้อย 10 ตัว, รหัสผ่านต้องมีอักษรตัวพิมพ์เล็กอย่างน้อยหนึ่งตัว, รหัสผ่านต้องมีตัวอักษรพิมพ์ใหญ่อย่างน้อยหนึ่งตัว, รหัสผ่านต้องมีอย่างน้อยหนึ่งหมายเลข';
+  } else if ((err.toString() === 'The password must be at least 10 characters long. The password must contain at least one number. The password must contain at least one special character.')) {
+    return 'รหัสผ่านต้องมีความยาวอย่างน้อย 10 ตัว, รหัสผ่านต้องมีอย่างน้อยหนึ่งหมายเลข, รหัสผ่านต้องมีอักขระพิเศษอย่างน้อยหนึ่งอักขระ';
+  } else if ((err.toString() === 'The password must be at least 10 characters long. The password must contain at least one uppercase letter. The password must contain at least one special character.')) {
+    return 'รหัสผ่านต้องมีความยาวอย่างน้อย 10 ตัว, รหัสผ่านต้องมีตัวอักษรพิมพ์ใหญ่อย่างน้อยหนึ่งตัว, รหัสผ่านต้องมีอักขระพิเศษอย่างน้อยหนึ่งอักขระ';
+  } else if ((err.toString() === 'The password must be at least 10 characters long. The password must contain at least one lowercase letter. The password must contain at least one special character.')) {
+    return 'รหัสผ่านต้องมีความยาวอย่างน้อย 10 ตัว, รหัสผ่านต้องมีอักษรตัวพิมพ์เล็กอย่างน้อยหนึ่งตัว, รหัสผ่านต้องมีอักขระพิเศษอย่างน้อยหนึ่งอักขระ';
+  } else if ((err.toString() === 'The password must be at least 10 characters long. The password must contain at least one lowercase letter. The password must contain at least one uppercase letter.')) {
+    return 'รหัสผ่านต้องมีความยาวอย่างน้อย 10 ตัว, รหัสผ่านต้องมีอักษรตัวพิมพ์เล็กอย่างน้อยหนึ่งตัว, รหัสผ่านต้องมีตัวอักษรพิมพ์ใหญ่อย่างน้อยหนึ่งตัว';
+  } else if ((err.toString() === 'The password must be at least 10 characters long. The password must contain at least one lowercase letter. The password must contain at least one number.')) {
+    return 'รหัสผ่านต้องมีความยาวอย่างน้อย 10 ตัว, รหัสผ่านต้องมีอักษรตัวพิมพ์เล็กอย่างน้อยหนึ่งตัว, รหัสผ่านต้องมีอย่างน้อยหนึ่งหมายเลข';
+  } else if ((err.toString() === 'The password must be at least 10 characters long. The password must contain at least one special character.')) {
+    return 'รหัสผ่านต้องมีความยาวอย่างน้อย 10 ตัว, รหัสผ่านต้องมีอักขระพิเศษอย่างน้อยหนึ่งอักขระ';
+  } else if ((err.toString() === 'Please fill a valid email address')) {
+    return 'รูปแบบอีเมล์นี้ไม่ถูกต้อง';
+  } else {
+    return err;
+  }
+}

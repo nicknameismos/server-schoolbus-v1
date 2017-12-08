@@ -25,6 +25,7 @@ describe('User Model Unit Tests:', function () {
       email: 'test@test.com',
       username: 'username',
       password: 'M3@n.jsI$Aw3$0m3',
+      phone:'123',      
       provider: 'local'
     };
     // user2 is a clone of user1
@@ -36,6 +37,7 @@ describe('User Model Unit Tests:', function () {
       email: 'test3@test.com',
       username: 'different_username',
       password: 'Different_Password1!',
+      phone:'1234',      
       provider: 'local'
     };
   });

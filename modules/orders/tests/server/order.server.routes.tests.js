@@ -335,6 +335,7 @@ describe('Order CRUD tests', function () {
       email: 'orphan@test.com',
       username: _creds.username,
       password: _creds.password,
+      phone: 'adsff',
       provider: 'local'
     });
 

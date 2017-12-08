@@ -57,6 +57,7 @@ describe('User CRUD tests', function () {
 
     _user.username = 'register_new_user';
     _user.email = 'register_new_user_@test.com';
+    _user.phone = 'register_new_user';
 
     agent.post('/api/auth/signup')
       .send(_user)
@@ -747,6 +748,7 @@ describe('User CRUD tests', function () {
 
     _user2.username = 'user2_username';
     _user2.email = 'user2_email@test.com';
+    _user2.phone = 'user2_email@test.com';
 
     var credentials2 = {
       username: 'username2',
@@ -799,6 +801,7 @@ describe('User CRUD tests', function () {
 
     _user2.username = 'user2_username';
     _user2.email = 'user2_email@test.com';
+    _user2.phone = 'user2_emaidddl@test.com';
 
     var credentials2 = {
       username: 'username2',
@@ -952,6 +955,160 @@ describe('User CRUD tests', function () {
         done();
       });
   });
+
+  it('should be able to same phone number TH', function (done) {
+    var dataUser = {
+      firstName: 'Full2',
+      lastName: 'Name2',
+      displayName: 'Full2 Name2',
+      email: 'test2@test.com',
+      phone: '0987771111',
+      username: 'Full2',
+      password: credentials.password,
+      provider: 'local'
+    };
+    agent.post('/api/auth/signup')
+      .send(dataUser)
+      .expect(400)
+      .end(function (err, res) {
+        if (err) {
+          return done(err);
+        }
+
+        res.body.message.should.equal('เบอร์โทรศัพท์นี้ถูกใช้แล้ว');
+        return done();
+      });
+  });
+
+  it('should be able to same username TH', function (done) {
+    var dataUser = {
+      firstName: 'Full2',
+      lastName: 'Name2',
+      displayName: 'Full2 Name2',
+      email: 'test23@test.com',
+      phone: '0987771111',
+      username: credentials.username,
+      password: credentials.password,
+      provider: 'local'
+    };
+    agent.post('/api/auth/signup')
+      .send(dataUser)
+      .expect(400)
+      .end(function (err, res) {
+        if (err) {
+          return done(err);
+        }
+
+        res.body.message.should.equal('ชื่อบัญชีนี้ถูกใช้แล้ว');
+        return done();
+      });
+  });
+
+  it('should be able to same email TH', function (done) {
+    var dataUser = {
+      firstName: 'Full2',
+      lastName: 'Name2',
+      displayName: 'Full2 Name2',
+      email: 'test@test.com',
+      phone: '0987771111',
+      username: 'sdfsdf',
+      password: credentials.password,
+      provider: 'local'
+    };
+    agent.post('/api/auth/signup')
+      .send(dataUser)
+      .expect(400)
+      .end(function (err, res) {
+        if (err) {
+          return done(err);
+        }
+
+        res.body.message.should.equal('อีเมล์นี้ถูกใช้แล้ว');
+        return done();
+      });
+  });
+
+  it('should be able to pass TH', function (done) {
+    var dataUser = {
+      firstName: 'Full2',
+      lastName: 'Name2',
+      displayName: 'Full2 Name2',
+      email: 'test@test.com',
+      phone: '0987771111',
+      username: 'sdfsdf',
+      password: 'hsgsygdsu7s',
+      provider: 'local'
+    };
+    agent.post('/api/auth/signup')
+      .send(dataUser)
+      .expect(400)
+      .end(function (err, res) {
+        if (err) {
+          return done(err);
+        }
+
+        // res.body.message.should.equal('รหัสผ่านต้องมีอย่างน้อย10ตัวอักษร');
+        // res.body.message.should.equal('รหัสผ่านต้องมีอักขระอย่างน้อย 1 ตัว @, #, $');
+        // res.body.message.should.equal('รหัสผ่านต้องไม่เรียงซ้ำกันเกิน 3 ตัวขึ้นไป');
+        // res.body.message.should.equal('รหัสผ่านต้องมีตัวอักษรพิมพ์ใหญ่อย่างน้อย 1 ตัว');
+        // res.body.message.should.equal('รหัสผ่านต้องมีอักษรตัวพิมพ์เล็กอย่างน้อย 1 ตัว');
+        // res.body.message.should.equal('รหัสผ่านต้องมีความยาวอย่างน้อย 10 ตัว, รหัสผ่านต้องมีตัวอักษรพิมพ์ใหญ่อย่างน้อยหนึ่งตัว, รหัสผ่านต้องมีอย่างน้อยหนึ่งหมายเลข, รหัสผ่านต้องมีอักขระพิเศษอย่างน้อยหนึ่งอักขระ');
+        // res.body.message.should.equal('รหัสผ่านต้องมีความยาวอย่างน้อย 10 ตัว, รหัสผ่านต้องมีอักษรตัวพิมพ์เล็กอย่างน้อยหนึ่งตัว, รหัสผ่านต้องมีตัวอักษรพิมพ์ใหญ่อย่างน้อยหนึ่งตัว, รหัสผ่านต้องมีอักขระพิเศษอย่างน้อยหนึ่งอักขระ');
+        // res.body.message.should.equal('รหัสผ่านต้องมีความยาวอย่างน้อย 10 ตัว, รหัสผ่านต้องมีอักษรตัวพิมพ์เล็กอย่างน้อยหนึ่งตัว, รหัสผ่านต้องมีตัวอักษรพิมพ์ใหญ่อย่างน้อยหนึ่งตัว, รหัสผ่านต้องมีอย่างน้อยหนึ่งหมายเลข');
+        // res.body.message.should.equal('รหัสผ่านต้องมีความยาวอย่างน้อย 10 ตัว, รหัสผ่านต้องมีอย่างน้อยหนึ่งหมายเลข, รหัสผ่านต้องมีอักขระพิเศษอย่างน้อยหนึ่งอักขระ');
+        // res.body.message.should.equal('รหัสผ่านต้องมีความยาวอย่างน้อย 10 ตัว, รหัสผ่านต้องมีตัวอักษรพิมพ์ใหญ่อย่างน้อยหนึ่งตัว, รหัสผ่านต้องมีอักขระพิเศษอย่างน้อยหนึ่งอักขระ');
+        // res.body.message.should.equal('รหัสผ่านต้องมีความยาวอย่างน้อย 10 ตัว, รหัสผ่านต้องมีอักษรตัวพิมพ์เล็กอย่างน้อยหนึ่งตัว, รหัสผ่านต้องมีอักขระพิเศษอย่างน้อยหนึ่งอักขระ');
+        // res.body.message.should.equal('รหัสผ่านต้องมีความยาวอย่างน้อย 10 ตัว, รหัสผ่านต้องมีอักษรตัวพิมพ์เล็กอย่างน้อยหนึ่งตัว, รหัสผ่านต้องมีตัวอักษรพิมพ์ใหญ่อย่างน้อยหนึ่งตัว');
+        // res.body.message.should.equal('รหัสผ่านต้องมีความยาวอย่างน้อย 10 ตัว, รหัสผ่านต้องมีอักษรตัวพิมพ์เล็กอย่างน้อยหนึ่งตัว, รหัสผ่านต้องมีอย่างน้อยหนึ่งหมายเลข');
+        // res.body.message.should.equal('รหัสผ่านต้องมีความยาวอย่างน้อย 10 ตัว, รหัสผ่านต้องมีอักขระพิเศษอย่างน้อยหนึ่งอักขระ');
+        
+        return done();
+      });
+  });
+
+  it('should be able to invarit email TH', function (done) {
+    var dataUser = {
+      firstName: 'Full2',
+      lastName: 'Name2',
+      displayName: 'Full2 Name2',
+      email: 'test@.com',
+      phone: '0987771111',
+      username: 'sdfsdf',
+      password: credentials.password,
+      provider: 'local'
+    };
+    agent.post('/api/auth/signup')
+      .send(dataUser)
+      .expect(400)
+      .end(function (err, res) {
+        if (err) {
+          return done(err);
+        }
+
+        res.body.message.should.equal('รูปแบบอีเมล์นี้ไม่ถูกต้อง');
+        return done();
+      });
+  });
+
+  it('should be able to Login password TH', function (done) {
+    var dataUser = {
+      username:'amoratCha',
+      password: 'P@ssw0rd1234'
+
+    };
+    agent.post('/api/auth/signin')
+      .send(dataUser)
+      .expect(400)
+      .end(function (err, res) {
+        if (err) {
+          return done(err);
+        }
+
+        // res.body.message.should.equal('ไม่พบผู้ใช้');
+        return done();
+      });
+  });
+
 
   afterEach(function (done) {
     User.remove().exec(done);

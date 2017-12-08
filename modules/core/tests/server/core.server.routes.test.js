@@ -40,6 +40,7 @@ describe('User Token tests', function () {
             email: 'test@test.com',
             username: credentials.username,
             password: credentials.password,
+            phone: '123',
             provider: 'local'
         };
 

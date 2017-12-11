@@ -62,12 +62,12 @@ exports.requiresLoginToken = function (req, res, next) {
       }, function (err, user) {
         if (!user) {
           return res.status(401).send({
-            message: 'Token is incorrect or has expired. Please login again'
+            message: 'กรุณาเข้าสู่ระบบอีกครั้ง'
           });
         }
         if (err) {
           return res.status(500).send({
-            message: 'There was an internal server error processing your login token'
+            message: 'กรุณาเข้าสู่ระบบอีกครั้ง'
           });
         }
 
@@ -79,7 +79,7 @@ exports.requiresLoginToken = function (req, res, next) {
     }
     else {
       return res.status(500).send({
-        message: 'There was an internal server error processing yuor login token'
+        message: 'กรุณาเข้าสู่ระบบอีกครั้ง'
       });
 
       // query DB for the user corresponding to the token and act accordingly

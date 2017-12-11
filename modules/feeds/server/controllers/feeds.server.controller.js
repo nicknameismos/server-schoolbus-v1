@@ -19,7 +19,7 @@ exports.create = function (req, res) {
   feed.save(function (err) {
     if (err) {
       return res.status(400).send({
-        message: errorHandler.getErrorMessage(err)
+        message: errorTH(errorHandler.getErrorMessage(err))
       });
     } else {
       res.jsonp(feed);
@@ -99,7 +99,7 @@ exports.feedByID = function (req, res, next, id) {
 
   if (!mongoose.Types.ObjectId.isValid(id)) {
     return res.status(400).send({
-      message: 'Feed is invalid'
+      message: 'ไม่พบข้อมูล'
     });
   }
 
@@ -108,7 +108,7 @@ exports.feedByID = function (req, res, next, id) {
       return next(err);
     } else if (!feed) {
       return res.status(404).send({
-        message: 'No Feed with that identifier has been found'
+        message: 'ไม่พบข้อมูล'
       });
     }
     req.feed = feed;
@@ -149,3 +149,13 @@ exports.updateComment = function (req, res) {
     }
   });
 };
+
+function errorTH(err) {
+  if ((err.toString() === 'Please fill Feed name')) {
+    return 'กรุณากรอกชื่อ';
+  } else if ((err.toString() === 'Please fill Feed image')) {
+    return 'กรุณาเลือกรูป';
+  } else {
+    return err;
+  }
+}

@@ -19,7 +19,7 @@ exports.create = function (req, res) {
   order.save(function (err) {
     if (err) {
       return res.status(400).send({
-        message: errorHandler.getErrorMessage(err)
+        message: errorTH(errorHandler.getErrorMessage(err))
       });
     } else {
       res.jsonp(order);
@@ -132,3 +132,13 @@ exports.orderByID = function (req, res, next, id) {
     next();
   });
 };
+
+function errorTH(err) {
+  if ((err.toString() === 'Please fill Order name')) {
+    return 'กรุณากรอกชื่อลูก';
+  } else if ((err.toString() === 'Please fill Order image')) {
+    return 'กรุณาเลือกรูป';
+  } else {
+    return err;
+  }
+}

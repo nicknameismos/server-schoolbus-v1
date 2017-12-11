@@ -46,7 +46,7 @@ describe('Order CRUD tests token', function () {
       email: 'test@test.com',
       username: credentials.username,
       password: credentials.password,
-      phone:'123',      
+      phone: '123',
       provider: 'local'
     });
 
@@ -135,6 +135,48 @@ describe('Order CRUD tests token', function () {
           });
       });
   });
+
+  it('should be able to save a Order not name', function (done) {
+
+    var userId = user.id;
+    order.name = '';
+    // Save a new Order
+    agent.post('/api/orders')
+      .set('authorization', 'Bearer ' + token)
+      .send(order)
+      .expect(400)
+      .end(function (orderSaveErr, orderSaveRes) {
+        // Handle Order save error
+        if (orderSaveErr) {
+          return done(orderSaveErr);
+        }
+
+        var feeds = orderSaveRes.body.message;
+        (feeds).should.match('กรุณากรอกชื่อลูก');
+        return done();
+      });
+  });
+
+  it('should be able to save a Order not image', function (done) {
+    
+        var userId = user.id;
+        order.image = '';
+        // Save a new Order
+        agent.post('/api/orders')
+          .set('authorization', 'Bearer ' + token)
+          .send(order)
+          .expect(400)
+          .end(function (orderSaveErr, orderSaveRes) {
+            // Handle Order save error
+            if (orderSaveErr) {
+              return done(orderSaveErr);
+            }
+    
+            var feeds = orderSaveRes.body.message;
+            (feeds).should.match('กรุณาเลือกรูป');
+            return done();
+          });
+      });
 
   afterEach(function (done) {
     User.remove().exec(function () {

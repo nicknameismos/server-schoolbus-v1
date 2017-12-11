@@ -1061,7 +1061,7 @@ describe('User CRUD tests', function () {
         // res.body.message.should.equal('รหัสผ่านต้องมีความยาวอย่างน้อย 10 ตัว, รหัสผ่านต้องมีอักษรตัวพิมพ์เล็กอย่างน้อยหนึ่งตัว, รหัสผ่านต้องมีตัวอักษรพิมพ์ใหญ่อย่างน้อยหนึ่งตัว');
         // res.body.message.should.equal('รหัสผ่านต้องมีความยาวอย่างน้อย 10 ตัว, รหัสผ่านต้องมีอักษรตัวพิมพ์เล็กอย่างน้อยหนึ่งตัว, รหัสผ่านต้องมีอย่างน้อยหนึ่งหมายเลข');
         // res.body.message.should.equal('รหัสผ่านต้องมีความยาวอย่างน้อย 10 ตัว, รหัสผ่านต้องมีอักขระพิเศษอย่างน้อยหนึ่งอักขระ');
-        
+
         return done();
       });
   });
@@ -1092,7 +1092,7 @@ describe('User CRUD tests', function () {
 
   it('should be able to Login password TH', function (done) {
     var dataUser = {
-      username:'amoratCha',
+      username: 'amoratCha',
       password: 'P@ssw0rd1234'
 
     };
@@ -1104,7 +1104,22 @@ describe('User CRUD tests', function () {
           return done(err);
         }
 
-        // res.body.message.should.equal('ไม่พบผู้ใช้');
+        res.body.message.should.equal('ไม่พบผู้ใช้');
+        return done();
+      });
+  });
+
+  it('should be able to Login invarit password TH', function (done) {
+    credentials.password = 'P@ssw0rd1234';
+    agent.post('/api/auth/signin')
+      .send(credentials)
+      .expect(400)
+      .end(function (err, res) {
+        if (err) {
+          return done(err);
+        }
+
+        res.body.message.should.equal('รหัสผ่านไม่ถูกต้อง');
         return done();
       });
   });

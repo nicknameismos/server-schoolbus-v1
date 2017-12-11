@@ -158,7 +158,7 @@ describe('Order CRUD tests', function () {
           .expect(400)
           .end(function (orderSaveErr, orderSaveRes) {
             // Set message assertion
-            (orderSaveRes.body.message).should.match('Please fill Order name');
+            (orderSaveRes.body.message).should.match('กรุณากรอกชื่อลูก');
 
             // Handle Order save error
             done(orderSaveErr);

@@ -145,7 +145,7 @@ describe('Feed CRUD tests', function () {
           .expect(400)
           .end(function (feedSaveErr, feedSaveRes) {
             // Set message assertion
-            (feedSaveRes.body.message).should.match('Please fill Feed name');
+            (feedSaveRes.body.message).should.match('กรุณากรอกชื่อ');
 
             // Handle Feed save error
             done(feedSaveErr);
@@ -241,7 +241,7 @@ describe('Feed CRUD tests', function () {
     request(app).get('/api/feeds/test')
       .end(function (req, res) {
         // Set assertion
-        res.body.should.be.instanceof(Object).and.have.property('message', 'Feed is invalid');
+        res.body.should.be.instanceof(Object).and.have.property('message', 'ไม่พบข้อมูล');
 
         // Call the assertion callback
         done();
@@ -253,7 +253,7 @@ describe('Feed CRUD tests', function () {
     request(app).get('/api/feeds/559e9cd815f80b4c256a8f41')
       .end(function (req, res) {
         // Set assertion
-        res.body.should.be.instanceof(Object).and.have.property('message', 'No Feed with that identifier has been found');
+        res.body.should.be.instanceof(Object).and.have.property('message', 'ไม่พบข้อมูล');
 
         // Call the assertion callback
         done();

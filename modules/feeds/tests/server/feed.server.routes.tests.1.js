@@ -46,7 +46,7 @@ describe('Feed CRUD tests with token', function () {
       email: 'test@test.com',
       username: credentials.username,
       password: credentials.password,
-      phone:'123',
+      phone: '123',
       provider: 'local'
     });
 
@@ -189,6 +189,57 @@ describe('Feed CRUD tests with token', function () {
 
               });
           });
+      });
+  });
+
+  it('should be able to save a Feed not name', function (done) {
+    var data = {
+      name: '',
+      image: ['image'],
+      islike: [],
+      comments: [{
+        user: user,
+        comment: 'test comment',
+      }],
+      user: user
+    };
+    agent.post('/api/feeds')
+      .set('authorization', 'Bearer ' + token)
+      .send(data)
+      .expect(400)
+      .end(function (signinErr, signinRes) {
+        // Handle signin error
+        if (signinErr) {
+          return done(signinErr);
+        }
+        var feeds = signinRes.body.message;
+        (feeds).should.match('กรุณากรอกชื่อ');
+        return done();
+      });
+  });
+  it('should be able to save a Feed not image', function (done) {
+    var data = {
+      name: 'sdfds',
+      image: [],
+      islike: [],
+      comments: [{
+        user: user,
+        comment: 'test comment',
+      }],
+      user: user
+    };
+    agent.post('/api/feeds')
+      .set('authorization', 'Bearer ' + token)
+      .send(data)
+      .expect(400)
+      .end(function (signinErr, signinRes) {
+        // Handle signin error
+        if (signinErr) {
+          return done(signinErr);
+        }
+        var feeds = signinRes.body.message;
+        (feeds).should.match('กรุณาเลือกรูป');
+        return done();
       });
   });
 

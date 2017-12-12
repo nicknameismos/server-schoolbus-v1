@@ -69,7 +69,7 @@ exports.signin = function (req, res, next) {
   passport.authenticate('local', function (err, user, info) {
     if (err || !user) {
       res.status(400).send({
-        message: '1'
+        message: 'ชื่อผู้ใช้งานหรือรหัสผ่านไม่ถูกต้อง'
       });
     } else {
       // Remove sensitive data before login
@@ -78,9 +78,7 @@ exports.signin = function (req, res, next) {
 
       req.login(user, function (err) {
         if (err) {
-          res.status(400).send({
-            message: '2'
-          });
+          res.status(400).send(err);
         } else {
           res.json(user);
         }

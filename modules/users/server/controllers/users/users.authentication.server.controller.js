@@ -255,11 +255,11 @@ exports.removeOAuthProvider = function (req, res, next) {
 
 
 function errorTH(err) {
-  if (err.toString() === '11000 duplicate key error collection: mean-test.users index: phone already exists' || err.toString() === 'mean-test.users index: phone already exists' || err.toString() === 'phone already exists') {
+  if (err.toString() === '11000 duplicate key error collection: mean-test.users index: phone already exists' || err.toString() === 'mean-test.users index: phone already exists' || err.toString() === 'Phone already exists') {
     return 'เบอร์โทรศัพท์นี้ถูกใช้แล้ว';
-  } else if ((err.toString() === '11000 duplicate key error collection: mean-test.users index: username already exists' || err.toString() === 'mean-test.users index: username already exists' || err.toString() === 'username already exists')) {
+  } else if ((err.toString() === '11000 duplicate key error collection: mean-test.users index: username already exists' || err.toString() === 'mean-test.users index: username already exists' || err.toString() === 'Username already exists')) {
     return 'ชื่อบัญชีนี้ถูกใช้แล้ว';
-  } else if ((err.toString() === '11000 duplicate key error collection: mean-test.users index: email already exists' || err.toString() === 'mean-test.users index: email already exists' || err.toString() === 'email already exists')) {
+  } else if ((err.toString() === '11000 duplicate key error collection: mean-test.users index: email already exists' || err.toString() === 'mean-test.users index: email already exists' || err.toString() === 'Email already exists')) {
     return 'อีเมล์นี้ถูกใช้แล้ว';
   } else if ((err.toString() === 'The password must be at least 10 characters long.')) {
     return 'รหัสผ่านต้องมีอย่างน้อย10ตัวอักษร';

@@ -89,14 +89,14 @@
         it('should fail to log in with nothing', function () {
           // Test expected POST request
           $httpBackend.expectPOST('/api/auth/signin').respond(400, {
-            'message': 'Missing credentials2222'
+            'message': 'Missing credentials'
           });
 
           scope.signin(true);
           $httpBackend.flush();
 
           // Test scope value
-          expect(scope.error).toEqual('Missing credentials2222');
+          expect(scope.error).toEqual('Missing credentials');
         });
 
         it('should fail to log in with wrong credentials', function () {

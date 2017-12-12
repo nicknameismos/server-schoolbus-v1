@@ -1104,7 +1104,7 @@ describe('User CRUD tests', function () {
           return done(err);
         }
 
-        res.body.message.should.equal('ไม่พบผู้ใช้2');
+        res.body.message.should.equal('ไม่พบผู้ใช้3');
         return done();
       });
   });

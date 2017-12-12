@@ -30,7 +30,7 @@ module.exports = function () {
                 }
                 if (!user) {
                     return done(null, false, {
-                        message: 'ไม่พบผู้ใช้'
+                        message: 'ไม่พบผู้ใช้2'
                     });
                 }
                 if (!user.authenticate(password)) {

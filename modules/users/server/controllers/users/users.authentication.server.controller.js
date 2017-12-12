@@ -293,6 +293,8 @@ function errorTH(err) {
     return 'รหัสผ่านต้องมีความยาวอย่างน้อย 10 ตัว, รหัสผ่านต้องมีอักขระพิเศษอย่างน้อยหนึ่งอักขระ';
   } else if ((err.toString() === 'Please fill a valid email address')) {
     return 'รูปแบบอีเมล์นี้ไม่ถูกต้อง';
+  } else if ((err.toString() === 'Missing credentials')) {
+    return 'ชื่อผู้ใช้งานหรือรหัสผ่านไม่ถูกต้อง';
   } else {
     return err;
   }

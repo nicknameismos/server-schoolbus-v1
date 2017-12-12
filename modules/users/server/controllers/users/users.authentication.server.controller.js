@@ -53,9 +53,8 @@ exports.signup = function (req, res) {
 
       req.login(user, function (err, resp) {
         if (err) {
-          res.status(400).send({
-            message: errorTH(errorHandler.getErrorMessage(err))
-          });
+          alert('xxx');
+          res.status(400).send(err);
         } else {
           res.json(user);
         }

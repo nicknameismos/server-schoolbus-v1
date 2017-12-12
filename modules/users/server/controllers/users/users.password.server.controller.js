@@ -219,12 +219,14 @@ exports.changePassword = function (req, res, next) {
               user.save(function (err) {
                 if (err) {
                   return res.status(400).send({
-                    message: errorHandler.getErrorMessage(err)
+                    message: 'xxx'
                   });
                 } else {
                   req.login(user, function (err) {
                     if (err) {
-                      res.status(400).send(err);
+                      res.status(400).send({
+                        message: 'xxx'
+                      });
                     } else {
                       res.send({
                         message: 'Password changed successfully'

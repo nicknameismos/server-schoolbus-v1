@@ -98,7 +98,7 @@
         });
 
         describe('POST error', function() {
-          var errorMessage = 'No account with that username has been found';
+          var errorMessage = 'ไม่พบบัญชีที่มีชื่อผู้ใช้นั้น';
           beforeEach(function() {
             $httpBackend.when('POST', '/api/auth/forgot', credentials).respond(400, {
               'message': errorMessage
@@ -158,7 +158,7 @@
         });
 
         it('POST error should set scope.error to response message', function() {
-          var errorMessage = 'Passwords do not match';
+          var errorMessage = 'รหัสผ่านไม่ตรงกัน';
           $httpBackend.when('POST', '/api/auth/reset/' + token, passwordDetails).respond(400, {
             'message': errorMessage
           });

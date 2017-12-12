@@ -235,7 +235,7 @@ describe('Order CRUD tests', function () {
     request(app).get('/api/orders/test')
       .end(function (req, res) {
         // Set assertion
-        res.body.should.be.instanceof(Object).and.have.property('message', 'Order is invalid');
+        res.body.should.be.instanceof(Object).and.have.property('message', 'คำสั่งซื้อไม่ถูกต้อง');
 
         // Call the assertion callback
         done();

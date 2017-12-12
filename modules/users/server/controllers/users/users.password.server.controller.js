@@ -34,7 +34,7 @@ exports.forgot = function (req, res, next) {
         }, '-salt -password', function (err, user) {
           if (!user) {
             return res.status(400).send({
-              message: 'No account with that username has been found'
+              message: 'ไม่พบบัญชีที่มีชื่อผู้ใช้นั้น'
             });
           } else if (user.provider !== 'local') {
             return res.status(400).send({
@@ -51,7 +51,7 @@ exports.forgot = function (req, res, next) {
         });
       } else {
         return res.status(400).send({
-          message: 'Username field must not be blank'
+          message: 'ช่องชื่อผู้ใช้ต้องไม่เว้นว่างไว้'
         });
       }
     },
@@ -84,7 +84,7 @@ exports.forgot = function (req, res, next) {
           });
         } else {
           return res.status(400).send({
-            message: 'Failure sending email'
+            message: 'ไม่สามารถส่งอีเมลได้'
           });
         }
 
@@ -162,7 +162,7 @@ exports.reset = function (req, res, next) {
             });
           } else {
             return res.status(400).send({
-              message: 'Passwords do not match'
+              message: 'รหัสผ่านไม่ตรงกัน'
             });
           }
         } else {
@@ -235,28 +235,28 @@ exports.changePassword = function (req, res, next) {
               });
             } else {
               res.status(400).send({
-                message: 'Passwords do not match'
+                message: 'รหัสผ่านไม่ตรงกัน'
               });
             }
           } else {
             res.status(400).send({
-              message: 'Current password is incorrect'
+              message: 'รหัสผ่านปัจจุบันไม่ถูกต้อง'
             });
           }
         } else {
           res.status(400).send({
-            message: 'User is not found'
+            message: 'ไม่พบผู้ใช้งาน'
           });
         }
       });
     } else {
       res.status(400).send({
-        message: 'Please provide a new password'
+        message: 'โปรดระบุรหัสผ่านใหม่'
       });
     }
   } else {
     res.status(400).send({
-      message: 'User is not signed in'
+      message: 'ผู้ใช้งานไม่ได้ลงชื่อเข้าใช้'
     });
   }
 };

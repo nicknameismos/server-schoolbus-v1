@@ -327,7 +327,7 @@ describe('User CRUD tests', function () {
             return done(err);
           }
 
-          res.body.message.should.equal('No account with that username has been found');
+          res.body.message.should.equal('ไม่พบบัญชีที่มีชื่อผู้ใช้นั้น');
           return done();
         });
     });
@@ -351,7 +351,7 @@ describe('User CRUD tests', function () {
             return done(err);
           }
 
-          res.body.message.should.equal('Username field must not be blank');
+          res.body.message.should.equal('ช่องชื่อผู้ใช้ต้องไม่เว้นว่างไว้');
           return done();
         });
     });
@@ -402,7 +402,7 @@ describe('User CRUD tests', function () {
           }, function (err, userRes) {
             userRes.resetPasswordToken.should.not.be.empty();
             should.exist(userRes.resetPasswordExpires);
-            res.body.message.should.be.equal('Failure sending email');
+            res.body.message.should.be.equal('ไม่สามารถส่งอีเมลได้');
             return done();
           });
         });
@@ -533,7 +533,7 @@ describe('User CRUD tests', function () {
               return done(err);
             }
 
-            res.body.message.should.equal('Passwords do not match');
+            res.body.message.should.equal('รหัสผ่านไม่ตรงกัน');
             return done();
           });
       });
@@ -562,7 +562,7 @@ describe('User CRUD tests', function () {
               return done(err);
             }
 
-            res.body.message.should.equal('Current password is incorrect');
+            res.body.message.should.equal('รหัสผ่านปัจจุบันไม่ถูกต้อง');
             return done();
           });
       });
@@ -591,7 +591,7 @@ describe('User CRUD tests', function () {
               return done(err);
             }
 
-            res.body.message.should.equal('Please provide a new password');
+            res.body.message.should.equal('โปรดระบุรหัสผ่านใหม่');
             return done();
           });
       });
@@ -612,7 +612,7 @@ describe('User CRUD tests', function () {
           return done(err);
         }
 
-        res.body.message.should.equal('User is not signed in');
+        res.body.message.should.equal('ผู้ใช้งานไม่ได้ลงชื่อเข้าใช้');
         return done();
       });
   });
@@ -868,7 +868,7 @@ describe('User CRUD tests', function () {
             return done(userInfoErr);
           }
 
-          userInfoRes.body.message.should.equal('User is not signed in');
+          userInfoRes.body.message.should.equal('ผู้ใช้งานไม่ได้ลงชื่อเข้าใช้');
 
           // Call the assertion callback
           return done();
@@ -886,7 +886,7 @@ describe('User CRUD tests', function () {
           return done(userInfoErr);
         }
 
-        userInfoRes.body.message.should.equal('User is not signed in');
+        userInfoRes.body.message.should.equal('ผู้ใช้งานไม่ได้ลงชื่อเข้าใช้');
 
         // Call the assertion callback
         return done();

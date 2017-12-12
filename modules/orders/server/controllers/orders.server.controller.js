@@ -116,7 +116,7 @@ exports.orderByID = function (req, res, next, id) {
 
   if (!mongoose.Types.ObjectId.isValid(id)) {
     return res.status(400).send({
-      message: 'Order is invalid'
+      message: 'คำสั่งซื้อไม่ถูกต้อง'
     });
   }
 

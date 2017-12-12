@@ -45,7 +45,7 @@ exports.update = function (req, res) {
     });
   } else {
     res.status(400).send({
-      message: 'User is not signed in'
+      message: 'ผู้ใช้งานไม่ได้ลงชื่อเข้าใช้'
     });
   }
 };
@@ -90,7 +90,7 @@ exports.changeProfilePicture = function (req, res) {
     });
   } else {
     res.status(400).send({
-      message: 'User is not signed in'
+      message: 'ผู้ใช้งานไม่ได้ลงชื่อเข้าใช้'
     });
   }
 };
